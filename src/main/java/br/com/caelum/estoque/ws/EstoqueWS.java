@@ -5,6 +5,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
+import jakarta.xml.ws.ResponseWrapper;
 
 import java.util.List;
 
@@ -15,12 +16,11 @@ public class EstoqueWS {
 	private ItemDao dao = new ItemDao();
 
 	@WebMethod(operationName = "todosOsItens")
-	@WebResult(name = "itens")
-	public ListaItens getItens(@WebParam(name="filtros")Filtros filtros) {
+	@ResponseWrapper(localName="itens")
+	@WebResult(name = "item")
+	public List<Item> getItens(@WebParam(name="filtros")Filtros filtros) {
 		
 		System.out.println("Chamando getItens()");
-		List<Filtro> lista = filtros.getLista();
-		List<Item> itensResultado = dao.todosItens(lista);
-		return new ListaItens(itensResultado);
+		return dao.todosItens();
 	}
 }
