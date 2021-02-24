@@ -2,6 +2,7 @@ package br.com.caelum.estoque.ws;
 
 import br.com.caelum.estoque.modelo.item.*;
 import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 
@@ -15,7 +16,7 @@ public class EstoqueWS {
 
 	@WebMethod(operationName = "todosOsItens")
 	@WebResult(name = "itens")
-	public ListaItens getItens(Filtros filtros) {
+	public ListaItens getItens(@WebParam(name="filtros")Filtros filtros) {
 		
 		System.out.println("Chamando getItens()");
 		List<Filtro> lista = filtros.getLista();
