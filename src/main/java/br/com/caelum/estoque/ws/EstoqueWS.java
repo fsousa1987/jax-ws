@@ -41,8 +41,9 @@ public class EstoqueWS {
 			throw new AutorizacaoException("Autorização falhou");
 		}
 
-		this.dao.cadastrar(item);
+		new ItemValidador(item).validate();
 
+		this.dao.cadastrar(item);
 		return item;
 	}
 }
