@@ -5,6 +5,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
+import jakarta.xml.ws.RequestWrapper;
 import jakarta.xml.ws.ResponseWrapper;
 
 import java.util.List;
@@ -18,9 +19,12 @@ public class EstoqueWS {
 	@WebMethod(operationName = "todosOsItens")
 	@ResponseWrapper(localName="itens")
 	@WebResult(name = "item")
-	public List<Item> getItens(@WebParam(name="filtros")Filtros filtros) {
-		
-		System.out.println("Chamando getItens()");
-		return dao.todosItens();
+	@RequestWrapper(localName = "listaitens")
+	public ListaItens getItens(@WebParam(name="filtros")Filtros filtros) {
+
+		List<Filtro> lista = filtros.getLista();
+		List<Item> result = dao.todosItens(lista);
+
+		return new ListaItens(result);
 	}
 }
