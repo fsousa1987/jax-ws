@@ -1,8 +1,10 @@
 package br.com.caelum.estoque.modelo.usuario;
 
+import br.com.caelum.estoque.adapter.DateAdapter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.util.Date;
 import java.util.Objects;
@@ -13,6 +15,7 @@ public class TokenUsuario {
 	@XmlElement(required=true)
 	private String token;
 
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	@XmlElement(required=true)
 	private Date dataValidade;
 	
