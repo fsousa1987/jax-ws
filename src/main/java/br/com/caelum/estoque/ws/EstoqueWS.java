@@ -1,13 +1,11 @@
 package br.com.caelum.estoque.ws;
 
-import br.com.caelum.estoque.modelo.item.Item;
-import br.com.caelum.estoque.modelo.item.ItemDao;
-import br.com.caelum.estoque.modelo.item.ListaItens;
+import br.com.caelum.estoque.modelo.item.*;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings({"FieldMayBeFinal", "CanBeFinal"})
 @WebService
@@ -17,10 +15,11 @@ public class EstoqueWS {
 
 	@WebMethod(operationName = "todosOsItens")
 	@WebResult(name = "itens")
-	public ListaItens getItens() {
+	public ListaItens getItens(Filtros filtros) {
 		
 		System.out.println("Chamando getItens()");
-		ArrayList<Item> lista = dao.todosItens();
-		return new ListaItens(lista);
+		List<Filtro> lista = filtros.getLista();
+		List<Item> itensResultado = dao.todosItens(lista);
+		return new ListaItens(itensResultado);
 	}
 }
