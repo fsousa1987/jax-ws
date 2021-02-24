@@ -1,11 +1,19 @@
 package br.com.caelum.estoque.modelo.usuario;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+
 import java.util.Date;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TokenUsuario {
 
+	@XmlElement(required=true)
 	private String token;
+
+	@XmlElement(required=true)
 	private Date dataValidade;
 	
 	//JAX-B precisa desse construtor

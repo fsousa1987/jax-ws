@@ -1,15 +1,26 @@
 package br.com.caelum.estoque.modelo.item;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class Item {
 
+	@XmlElement(required=true)
 	private String codigo;
+
+	@XmlElement(required=true)
 	private String nome;
+
+	@XmlElement(required=true)
 	private String tipo;
+
+	@XmlElement(required=true)
 	private int quantidade;
 
 	Item() {
