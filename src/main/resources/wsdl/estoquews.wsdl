@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--suppress XmlHighlighting, XmlHighlighting -->
+
+<definitions
+        xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.estoque.caelum.com.br/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/"
+        targetNamespace="http://ws.estoque.caelum.com.br/" name="EstoqueWSService">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://ws.estoque.caelum.com.br/" schemaLocation="http://localhost:8080/estoquews?xsd=1"/>
+        </xsd:schema>
+    </types>
+    <message name="TodosOsItens">
+        <part name="parameters" element="tns:TodosOsItens"/>
+    </message>
+    <message name="TodosOsItensResponse">
+        <part name="parameters" element="tns:TodosOsItensResponse"/>
+    </message>
+    <message name="CadastrarItem">
+        <part name="parameters" element="tns:CadastrarItem"/>
+        <part name="tokenUsuario" element="tns:tokenUsuario"/>
+    </message>
+    <message name="CadastrarItemResponse">
+        <part name="result" element="tns:CadastrarItemResponse"/>
+    </message>
+    <message name="AutorizacaoFault">
+        <part name="fault" element="tns:AutorizacaoFault"/>
+    </message>
+    <portType name="EstoqueWS">
+        <operation name="TodosOsItens">
+            <input wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/TodosOsItensRequest" message="tns:TodosOsItens"/>
+            <output wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/TodosOsItensResponse" message="tns:TodosOsItensResponse"/>
+        </operation>
+        <operation name="CadastrarItem" parameterOrder="parameters tokenUsuario">
+            <input wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItemRequest" message="tns:CadastrarItem"/>
+            <output wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItemResponse" message="tns:CadastrarItemResponse"/>
+            <fault message="tns:AutorizacaoFault" name="AutorizacaoFault" wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/CadastrarItem/Fault/AutorizacaoException"/>
+        </operation>
+    </portType>
+    <binding name="EstoqueWSPortBinding" type="tns:EstoqueWS">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="TodosOsItens">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CadastrarItem">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal" parts="parameters"/>
+                <soap:header message="tns:CadastrarItem" part="tokenUsuario" use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="AutorizacaoFault">
+                <soap:fault name="AutorizacaoFault" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="EstoqueWSService">
+        <port name="EstoqueWSPort" binding="tns:EstoqueWSPortBinding">
+            <soap:address location="http://localhost:8080/estoquews"/>
+        </port>
+    </service>
+</definitions>

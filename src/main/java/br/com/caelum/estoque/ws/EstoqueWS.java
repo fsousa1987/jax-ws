@@ -11,7 +11,7 @@ import jakarta.jws.WebService;
 
 import java.util.List;
 
-@SuppressWarnings({"FieldMayBeFinal", "CanBeFinal"})
+@SuppressWarnings({"FieldMayBeFinal", "CanBeFinal", "NonJaxWsWebServices"})
 @WebService
 public class EstoqueWS {
 	
